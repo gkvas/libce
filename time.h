@@ -55,6 +55,8 @@ void tzset();
 int clock(void);
 time_t wce_FILETIME2time_t(const FILETIME* pf);
 
+int ctime_s(char* buffer, size_t sizeInBytes, const time_t *time);
+
 
 #ifdef __cplusplus
 };

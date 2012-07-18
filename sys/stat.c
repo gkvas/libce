@@ -100,3 +100,6 @@ int fstat(int file, struct stat *sbuf)
 	return 0;
 }
 
+int _wstat(const wchar_t *filename, struct _stat *stat) {
+	return 0;
+}

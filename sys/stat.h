@@ -57,8 +57,9 @@ struct stat
 #define _stat stat
 
 int _stat(const char *filename, struct _stat *stat);
-int _wstat(const wchar_t *filename, struct _stat *stat);
 int fstat(int file, struct stat *sbuf);
+
+int _wstat(const wchar_t *filename, struct _stat *stat);
 
 
 #ifdef __cplusplus

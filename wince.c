@@ -15,6 +15,8 @@
 /* global for GetCommandLineA */
 char *_commandLine;
 
+char** environ;
+
 extern char _currentdir[];
 
 /* make up Win32API except wce_* functions.  */
@@ -252,14 +254,6 @@ BOOL GenerateConsoleCtrlEvent(DWORD dwCtrlEvent,
 	return 0;
 }
 
-BOOL DuplicateHandle(
-	HANDLE source_process, HANDLE source,
-	HANDLE dest_process, HANDLE *dest,
-	DWORD access, BOOL inherit, DWORD options)
-{
-	return 0;
-}
-
 BOOL LockFile(HANDLE hFile,
 	DWORD dwFileOffsetLow, DWORD dwFileOffsetHigh,
 	DWORD nNumberOfBytesToLockLow, DWORD nNumberOfBytesToLockHigh)
@@ -267,24 +261,10 @@ BOOL LockFile(HANDLE hFile,
 	return FALSE;
 }
 
-BOOL LockFileEx(HANDLE hFile,
-	DWORD dwFlags, DWORD dwReserved,
-	DWORD nNumberOfBytesToLockLow, DWORD nNumberOfBytesToLockHigh,
-	LPOVERLAPPED lpOverlapped)
-{
-	return FALSE;
-}
 
 BOOL UnlockFile( HFILE hFile,
 	DWORD dwFileOffsetLow, DWORD dwFileOffsetHigh,
 	DWORD nNumberOfBytesToUnlockLow, DWORD nNumberOfBytesToUnlockHigh)
-{
-	return FALSE;
-}
-
-BOOL UnlockFileEx(HANDLE hFile,
-	DWORD dwReserved, DWORD nNumberOfBytesToUnlockLow,
-	DWORD nNumberOfBytesToUnlockHigh, LPOVERLAPPED lpOverlapped)
 {
 	return FALSE;
 }
@@ -518,6 +498,68 @@ BOOL GetFileSizeEx(HANDLE hFile, PLARGE_INTEGER lpFileSize) {
 int ReadDataPending()
 {
 	return 0;
+}
+
+int _wsopen_s( int * _FileHandle, const wchar_t * _Filename, int _OpenFlag, int _ShareFlag, int _PermissionFlag) {
+	return 0;
+}
+
+int _waccess(const wchar_t * _Filename,  int _AccessMode) {
+	return 0;
+}
+
+int _wunlink(const wchar_t * _Filename) {
+	return 0;
+}
+
+int _wrename(const wchar_t * _OldFilename, const wchar_t * _NewFilename) {
+	return 0;
+}
+
+int _wmkdir(const wchar_t * dir) {
+	return 0;
+}
+
+int sprintf_s(char *buffer, size_t sizeOfBuffer, const char *format, ... ){
+	return 0;
+}
+
+int ctime_s(char* buffer, size_t sizeInBytes, const time_t *time) {
+	return 0;
+}
+
+DWORD WINAPI GetFullPathNameW(LPCTSTR lpFileName, DWORD nBufferLength, LPTSTR lpBuffer, LPTSTR *lpFilePart) {
+	return 0;
+}
+
+DWORD GetCurrentDirectoryA(DWORD nBufferLength, LPSTR lpBuffer)
+{
+	wchar_t *p;
+	LPWSTR lpBufferW;
+	LPSTR  mb;
+	size_t ret;
+
+	if(nBufferLength == 0) {
+		return 0;
+	}
+
+	lpBufferW = (LPWSTR) malloc(nBufferLength * sizeof(wchar_t));
+
+	ret = GetModuleFileNameW(NULL, lpBufferW, nBufferLength);
+
+	p = wcsrchr(lpBufferW, '\\');
+
+	if (p != NULL) {
+		ret = p - lpBufferW + 1;
+		lpBufferW[ret] = '\0';
+	}
+
+	mb = wce_wctomb(lpBufferW);
+	strcpy(lpBuffer, mb);
+	free(mb);
+	free(lpBufferW);
+
+	return ret;
 }
 
 /*---------------- helper functions. ---------------------------- */

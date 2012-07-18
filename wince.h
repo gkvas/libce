@@ -103,6 +103,9 @@ extern "C" {
 #undef LoadLibrary
 #define LoadLibrary LoadLibraryA
 
+#undef GetCurrentDirectory
+#define GetCurrentDirectory GetCurrentDirectoryA
+
 /* stdio.c */
 FILE *freopen(const char *filename, const char *mode, FILE *file);
 FILE *fdopen( int handle, const char *mode );
@@ -127,23 +130,12 @@ FARPROC GetProcAddressA(HMODULE hModule, LPCSTR lpProcName);
 void GetSystemTimeAsFileTimeA(LPFILETIME lpSystemTimeAsFileTime);
 
 BOOL MoveFileEx(LPCSTR oldname, LPCSTR newname, DWORD dwFlags);
-BOOL DuplicateHandle(
-	HANDLE source_process, HANDLE source,
-	HANDLE dest_process, HANDLE *dest,
-	DWORD access, BOOL inherit, DWORD options);
 BOOL LockFile(HANDLE hFile,
 	DWORD dwFileOffsetLow, DWORD dwFileOffsetHigh,
 	DWORD nNumberOfBytesToLockLow, DWORD nNumberOfBytesToLockHigh);
-BOOL LockFileEx(HANDLE hFile,
-	DWORD dwFlags, DWORD dwReserved,
-	DWORD nNumberOfBytesToLockLow, DWORD nNumberOfBytesToLockHigh,
-	LPOVERLAPPED lpOverlapped);
 BOOL UnlockFile( HFILE hFile,
 	DWORD dwFileOffsetLow, DWORD dwFileOffsetHigh,
 	DWORD nNumberOfBytesToUnlockLow, DWORD nNumberOfBytesToUnlockHigh);
-BOOL UnlockFileEx(HANDLE hFile,
-	DWORD dwReserved, DWORD nNumberOfBytesToUnlockLow,
-	DWORD nNumberOfBytesToUnlockHigh, LPOVERLAPPED lpOverlapped);
 BOOL GetUserName(LPSTR lpBuffer, LPDWORD nSize);
 BOOL CreatePipe(PHANDLE hReadPipe, PHANDLE hWritePipe,
 	LPSECURITY_ATTRIBUTES lpPipeAttributes, DWORD nSize);
@@ -163,7 +155,21 @@ BOOL GetProcessTimes(HANDLE hprocess,
 	LPFILETIME lpKernelTime, LPFILETIME lpUserTime);
 void SwitchToThread();
 BOOL GetFileSizeEx(HANDLE hFile, PLARGE_INTEGER lpFileSize);
+DWORD GetCurrentDirectoryA(DWORD nBufferLength, LPSTR lpBuffer);
+DWORD WINAPI GetFullPathNameW(LPCTSTR lpFileName, DWORD nBufferLength, LPTSTR lpBuffer, LPTSTR *lpFilePart);
 
+// stdio.h
+
+int sprintf_s(char *buffer, size_t sizeOfBuffer, const char *format, ... );
+
+
+// string.h
+int _tcscpy_s(char *strDestination, size_t numberOfElements, const char *strSource);
+int strerror_s(char *buffer, size_t sizeInBytes, int errnum);
+
+// stdlib.h
+
+int _wgetenv_s(size_t *pReturnValue, wchar_t *buffer, size_t numberOfElements, const wchar_t *varname);
 
 /* char -> wchar_t, wchar_t -> char */
 wchar_t* wce_mbtowc(const char* a);
