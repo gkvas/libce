@@ -45,7 +45,6 @@ FARPROC GetProcAddressA(HMODULE hModule, LPCSTR lpProcName)
 {
 	FARPROC p;
 	LPWSTR  lpwProcName;
-
 	lpwProcName = wce_mbtowc( lpProcName );
 	p = GetProcAddressW( hModule, lpwProcName );
 	free( lpwProcName );
@@ -395,7 +394,7 @@ HANDLE CreateFileA(LPCSTR filename, DWORD access,
 			NULL, creation, 0, NULL);
 	free(wfilename);
 
-	return 0;
+	return h;
 }
 
 /* ---------------- CharNext, CharPrev. ---------------------*/
@@ -521,7 +520,12 @@ int _wmkdir(const wchar_t * dir) {
 }
 
 int sprintf_s(char *buffer, size_t sizeOfBuffer, const char *format, ... ){
-	return 0;
+	int ret;
+	va_list argptr;
+    va_start(argptr, format);
+	ret = sprintf(buffer, format, argptr);
+	va_end(argptr);
+	return ret;
 }
 
 int ctime_s(char* buffer, size_t sizeInBytes, const time_t *time) {

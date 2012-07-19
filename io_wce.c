@@ -93,8 +93,10 @@ int _read(int fd, void *buffer, int length)
 int _write(int fd, const void *buffer, unsigned count)
 {
 	DWORD dw;
-	WriteFile( (HANDLE)fd, buffer, count, &dw, NULL );
-	return (int)dw;
+	// WriteFile((HANDLE) fd, buffer, count, &dw, NULL );
+	// return (int) dw;
+	printf("Foo");
+	return count;
 }
 
 long _lseek(int handle, long offset, int origin)

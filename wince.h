@@ -157,6 +157,7 @@ void SwitchToThread();
 BOOL GetFileSizeEx(HANDLE hFile, PLARGE_INTEGER lpFileSize);
 DWORD GetCurrentDirectoryA(DWORD nBufferLength, LPSTR lpBuffer);
 DWORD WINAPI GetFullPathNameW(LPCTSTR lpFileName, DWORD nBufferLength, LPTSTR lpBuffer, LPTSTR *lpFilePart);
+HINSTANCE LoadLibraryA(LPCSTR libname);
 
 // stdio.h
 
