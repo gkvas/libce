@@ -18,6 +18,7 @@
 
 extern int _errno;
 
+char* buftostring(const void* buf, size_t count);
 
 int _rename(const char *oldname, const char *newname)
 {
@@ -91,12 +92,22 @@ int _read(int fd, void *buffer, int length)
 }
 
 int _write(int fd, const void *buffer, unsigned count)
-{
-	DWORD dw;
-	// WriteFile((HANDLE) fd, buffer, count, &dw, NULL );
-	// return (int) dw;
-	printf("Foo");
-	return count;
+{	
+	if(fd == 1) {
+		const char* cbuf = buftostring(buffer, count);
+		fprintf(stdout, (char*) cbuf);
+		free((void*)cbuf);
+		return count;
+	} else if (fd == 2) {
+		const char* cbuf = buftostring(buffer, count);
+		fprintf(stdout, (char*) buffer);
+		free((void*)cbuf);
+		return count;
+	} else {
+		DWORD dw;
+		dw = WriteFile((HANDLE) fd, buffer, count, &dw, NULL );
+		return (int) dw;
+	}	
 }
 
 long _lseek(int handle, long offset, int origin)
@@ -229,4 +240,30 @@ long _get_osfhandle( int filehandle )
 {
 /*	return 0; */
 	return (long)filehandle;
+}
+
+int _wsopen_s( int * _FileHandle, const wchar_t * _Filename, int _OpenFlag, int _ShareFlag, int _PermissionFlag) {
+	return 0;
+}
+
+int _waccess(const wchar_t * _Filename,  int _AccessMode) {
+	return 0;
+}
+
+int _wunlink(const wchar_t * _Filename) {
+	return 0;
+}
+
+int _wrename(const wchar_t * _OldFilename, const wchar_t * _NewFilename) {
+	return 0;
+}
+
+int _wmkdir(const wchar_t * dir) {
+	return 0;
+}
+
+char* buftostring(const void* buf, size_t count) {
+	char* cbuf = (char*)malloc((count + 1) * sizeof(char));
+	memcpy(cbuf, buf, count);
+	*(cbuf + count) = '\0';
 }

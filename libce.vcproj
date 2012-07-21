@@ -296,6 +296,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\stdio_wce.h"
+				>
+			</File>
+			<File
+				RelativePath=".\stdlib_wce.h"
+				>
+			</File>
+			<File
+				RelativePath=".\string_wce.h"
+				>
+			</File>
+			<File
 				RelativePath=".\time.h"
 				>
 			</File>

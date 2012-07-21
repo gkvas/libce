@@ -14,6 +14,8 @@
 #include <tchar.h>
 #include <time.h>
 
+#include "errno.h"
+
 /* globals */
 const __int64 _onesec_in100ns = (__int64)10000000;
 int   timezone, _timezone, altzone;
@@ -224,6 +226,18 @@ char* ctime( const time_t *t )
 	sprintf( buf+11, "%02d:%02d:%02d %d\n", 
 		tms.tm_hour, tms.tm_min, tms.tm_sec, tms.tm_year+1900 );
 	return buf;
+}
+
+int ctime_s(char* buffer, size_t sizeInBytes, const time_t *time) {
+	char* src;
+
+	if(buffer == NULL || sizeInBytes == 0) {
+		return EINVAL;
+	}
+
+	src = ctime(time);
+	memcpy(buffer, src, sizeInBytes);
+	return 0;
 }
 
 char *asctime(const struct tm *pt)

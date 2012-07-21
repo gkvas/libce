@@ -499,39 +499,6 @@ int ReadDataPending()
 	return 0;
 }
 
-int _wsopen_s( int * _FileHandle, const wchar_t * _Filename, int _OpenFlag, int _ShareFlag, int _PermissionFlag) {
-	return 0;
-}
-
-int _waccess(const wchar_t * _Filename,  int _AccessMode) {
-	return 0;
-}
-
-int _wunlink(const wchar_t * _Filename) {
-	return 0;
-}
-
-int _wrename(const wchar_t * _OldFilename, const wchar_t * _NewFilename) {
-	return 0;
-}
-
-int _wmkdir(const wchar_t * dir) {
-	return 0;
-}
-
-int sprintf_s(char *buffer, size_t sizeOfBuffer, const char *format, ... ){
-	int ret;
-	va_list argptr;
-    va_start(argptr, format);
-	ret = sprintf(buffer, format, argptr);
-	va_end(argptr);
-	return ret;
-}
-
-int ctime_s(char* buffer, size_t sizeInBytes, const time_t *time) {
-	return 0;
-}
-
 DWORD WINAPI GetFullPathNameW(LPCTSTR lpFileName, DWORD nBufferLength, LPTSTR lpBuffer, LPTSTR *lpFilePart) {
 	return 0;
 }

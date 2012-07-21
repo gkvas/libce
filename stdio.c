@@ -34,3 +34,12 @@ FILE *fdopen( int handle, const char *mode )
 	return fp;
 }
 
+int sprintf_s(char *buffer, size_t sizeOfBuffer, const char *format, ... ){
+	int ret;
+	va_list argptr;
+    va_start(argptr, format);
+	ret = sprintf(buffer, format, argptr);
+	va_end(argptr);
+	return ret;
+}
+
