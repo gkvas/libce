@@ -1,6 +1,7 @@
 #ifndef PROCESS_H
 #define PROCESS_H 1
 
+#include "wince.h"
 
 #define _P_WAIT         0
 #define _P_NOWAIT       1
@@ -11,11 +12,6 @@
 #define P_NOWAIT        _P_NOWAIT
 #define P_DETACH        _P_DETACH
 #define P_OVERLAY       _P_OVERLAY
-
-#ifndef _INTPTR_T_DEFINED
-typedef int            intptr_t;
-#define _INTPTR_T_DEFINED
-#endif
 
 #ifdef __cplusplus
 extern "C" {

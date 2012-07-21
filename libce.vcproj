@@ -296,6 +296,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\stdint_wce.h"
+				>
+			</File>
+			<File
 				RelativePath=".\stdio_wce.h"
 				>
 			</File>

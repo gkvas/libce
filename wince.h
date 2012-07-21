@@ -46,6 +46,7 @@
 #include "stdio_wce.h"
 #include "stdlib_wce.h"
 #include "string_wce.h"
+#include "stdint_wce.h"
 
 #define _fgetc fgetc
 #define _fputc fputc
