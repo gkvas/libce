@@ -39,5 +39,10 @@ int strnicmp( const char *s1, const char *s2, size_t count )
 }
 
 int strerror_s(char *buffer, size_t sizeInBytes, int errnum) {
+
+	char* err_str = strerror(errnum);
+
+	strncpy(buffer, err_str, strlen(err_str));
+
 	return 0;
 }
