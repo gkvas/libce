@@ -266,4 +266,5 @@ char* buftostring(const void* buf, size_t count) {
 	char* cbuf = (char*)malloc((count + 1) * sizeof(char));
 	memcpy(cbuf, buf, count);
 	*(cbuf + count) = '\0';
+	return cbuf;
 }

@@ -43,3 +43,11 @@ int sprintf_s(char *buffer, size_t sizeOfBuffer, const char *format, ... ){
 	return ret;
 }
 
+int vsnprintf_s(char *buffer, size_t sizeOfBuffer, size_t count, const char *format, ... ) {
+	int ret;
+	va_list argptr;
+    va_start(argptr, format);
+	ret = _vsnprintf(buffer, sizeOfBuffer - 1, format, argptr);    
+	va_end(argptr);
+	return ret;
+}

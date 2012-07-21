@@ -38,52 +38,6 @@ int strnicmp( const char *s1, const char *s2, size_t count )
 	return n;
 }
 
-#if _WIN32_WCE < 300
-#include "..\missing\strtoul.c"
-
-char *strrchr( const char *p, int c )
-{
-	char *pp;
-	for( pp=(char*)p+strlen(p); pp!=p; pp-- )
-	{
-		if( *pp==c ) break;
-	}
-	return pp==p ? NULL : pp;
+int strerror_s(char *buffer, size_t sizeInBytes, int errnum) {
+	return 0;
 }
-
-int stricmp( const char *s1, const char *s2 )
-{
-	wchar_t *w1, *w2;
-	int n;
-
-	w1 = wce_mbtowc(s1);
-	w2 = wce_mbtowc(s2);
-
-	n = wcsicmp(w1, w2);
-
-	free(w1);
-	free(w2);
-
-	return n;
-}
-
-char *strpbrk(const char *str, const char *cs)
-{
-	wchar_t *wstr, *wcs, *w;
-	char *s = NULL;
-
-	wstr = wce_mbtowc(str);
-	wcs  = wce_mbtowc(cs);
-
-	w = wcspbrk(wstr, wcs);
-
-	if( w!=NULL )
-		s = str + (wcs-wstr)/sizeof(wchar_t);
-
-	free(wstr);
-	free(wcs);
-
-	return s;
-}
-
-#endif
