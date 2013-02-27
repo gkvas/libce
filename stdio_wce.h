@@ -14,6 +14,10 @@ int sprintf_s(char *buffer, size_t sizeOfBuffer, const char *format, ... );
 
 int vsnprintf_s(char *buffer, size_t sizeOfBuffer, size_t count, const char *format, ... );
 
+int _vscprintf(const char *format, va_list argptr);
+
+int _wopen(const wchar_t *filename, int oflag);
+
 #ifdef __cplusplus
 };
 #endif

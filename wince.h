@@ -145,6 +145,11 @@ BOOL GetFileSizeEx(HANDLE hFile, PLARGE_INTEGER lpFileSize);
 DWORD GetCurrentDirectoryA(DWORD nBufferLength, LPSTR lpBuffer);
 DWORD WINAPI GetFullPathNameW(LPCTSTR lpFileName, DWORD nBufferLength, LPTSTR lpBuffer, LPTSTR *lpFilePart);
 HINSTANCE LoadLibraryA(LPCSTR libname);
+void OutputDebugStringA(LPCSTR lpOutputString);
+
+#define MemoryBarrier _ReadWriteBarrier
+
+#define LPTOP_LEVEL_EXCEPTION_FILTER void*
 
 /* char -> wchar_t, wchar_t -> char */
 wchar_t* wce_mbtowc(const char* a);

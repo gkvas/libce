@@ -41,6 +41,11 @@ typedef unsigned int size_t;
 #define _SIZE_T_DEFINED_
 #endif
 
+#ifndef _SSIZE_T_DEFINED_
+typedef unsigned long ssize_t;
+#define _SSIZE_T_DEFINED_
+#endif
+
 //typedef unsigned char u_int8_t;
 
 //typedef short int16_t;

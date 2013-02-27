@@ -238,10 +238,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\wincemain.c"
-				>
-			</File>
-			<File
 				RelativePath=".\winsock2.c"
 				>
 			</File>

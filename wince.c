@@ -533,6 +533,14 @@ DWORD GetCurrentDirectoryA(DWORD nBufferLength, LPSTR lpBuffer)
 	return ret;
 }
 
+void OutputDebugStringA(LPCSTR lpOutputString)
+{
+	LPWSTR  lpwOutputString;
+	lpwOutputString = wce_mbtowc( lpOutputString );
+	OutputDebugString( lpwOutputString );
+	free( lpwOutputString );
+}
+
 /*---------------- helper functions. ---------------------------- */
 FILE *wce_fopen( const char *fname, const char *mode )
 {

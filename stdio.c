@@ -51,3 +51,12 @@ int vsnprintf_s(char *buffer, size_t sizeOfBuffer, size_t count, const char *for
 	va_end(argptr);
 	return ret;
 }
+
+int _vscprintf(const char *format, va_list argptr) {
+	const char buffer[8192];
+	return _vsnprintf(buffer, 8192, format, argptr);
+}
+
+int _wopen(const wchar_t *filename, int oflag) {
+	return 0;
+}
