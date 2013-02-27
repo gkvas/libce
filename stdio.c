@@ -56,7 +56,3 @@ int _vscprintf(const char *format, va_list argptr) {
 	const char buffer[8192];
 	return _vsnprintf(buffer, 8192, format, argptr);
 }
-
-int _wopen(const wchar_t *filename, int oflag) {
-	return 0;
-}

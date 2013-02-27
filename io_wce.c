@@ -55,27 +55,14 @@ int _open(const char *file, int mode, va_list arg)
 {
 	wchar_t *wfile;
 	DWORD access=0, share=0, create=0;
-	HANDLE h;
-
-	if( (mode&_O_RDWR) != 0 )
-		access = GENERIC_READ|GENERIC_WRITE;
-	else if( (mode&_O_RDONLY) != 0 )
-		access = GENERIC_READ;
-	else if( (mode&_O_WRONLY) != 0 )
-		access = GENERIC_WRITE;
-
-	if( (mode&_O_CREAT) != 0 )
-		create = CREATE_ALWAYS;
-	else
-		create = OPEN_ALWAYS;
+	int h;
 
 	wfile = wce_mbtowc(file);
-
-	h = CreateFileW(wfile, access, share, NULL,
-			create, 0, NULL );
+	
+	h = _wopen(wfile, mode);
 
 	free(wfile);
-	return (int)h;
+	return h;
 }
 
 int close(int fd)
@@ -267,4 +254,27 @@ char* buftostring(const void* buf, size_t count) {
 	memcpy(cbuf, buf, count);
 	*(cbuf + count) = '\0';
 	return cbuf;
+}
+
+int _wopen(const wchar_t *filename, int mode) {
+
+	DWORD access = 0, create = 0;
+	HANDLE h;
+
+	if((mode & _O_RDWR) != 0) 
+		access = GENERIC_READ | GENERIC_WRITE;
+	else if((mode & _O_WRONLY) != 0)
+		access = GENERIC_WRITE;
+	else
+		access = GENERIC_READ;
+
+	if((mode & _O_CREAT) != 0)
+		create = CREATE_ALWAYS;
+	else
+		create = OPEN_ALWAYS;
+	
+	h = CreateFileW(filename, access, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL,
+			create, 0, NULL );
+
+	return (int)h;
 }
