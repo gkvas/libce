@@ -41,6 +41,11 @@
 extern "C" {
 #endif
 
+#ifndef _ERRNO_T_DEFINED
+#define _ERRNO_T_DEFINED
+typedef int errno_t;
+#endif /* _ERRNO_T_DEFINED */
+
 extern int errno;
 extern int _doserrno;
 extern int _sys_nerr;

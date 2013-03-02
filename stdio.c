@@ -34,6 +34,23 @@ FILE *fdopen( int handle, const char *mode )
 	return fp;
 }
 
+errno_t fopen_s(FILE **file, const char *filename, const char *mode) {
+	FILE* p;
+	
+	if(file == NULL || filename == NULL) {
+		return EINVAL;
+	}
+	 p = fopen(filename, mode);
+
+	if(p == NULL) {
+		return EINVAL;
+	}
+
+	file = &p;
+
+	return 0;
+}
+
 int sprintf_s(char *buffer, size_t sizeOfBuffer, const char *format, ... ){
 	int ret;
 	va_list argptr;
@@ -43,16 +60,13 @@ int sprintf_s(char *buffer, size_t sizeOfBuffer, const char *format, ... ){
 	return ret;
 }
 
-int vsnprintf_s(char *buffer, size_t sizeOfBuffer, size_t count, const char *format, ... ) {
+int vsnprintf_s(char *buffer, size_t sizeOfBuffer, size_t count, const char *format, va_list argptr ) {
 	int ret;
-	va_list argptr;
-    va_start(argptr, format);
-	ret = _vsnprintf(buffer, sizeOfBuffer - 1, format, argptr);    
-	va_end(argptr);
+	ret = _vsnprintf(buffer, sizeOfBuffer, format, argptr);    
 	return ret;
 }
 
 int _vscprintf(const char *format, va_list argptr) {
-	const char buffer[8192];
+	char buffer[8192];
 	return _vsnprintf(buffer, 8192, format, argptr);
 }

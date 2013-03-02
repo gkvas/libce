@@ -149,6 +149,7 @@ void OutputDebugStringA(LPCSTR lpOutputString);
 
 #define MemoryBarrier _ReadWriteBarrier
 
+#undef LPTOP_LEVEL_EXCEPTION_FILTER
 #define LPTOP_LEVEL_EXCEPTION_FILTER void*
 
 /* char -> wchar_t, wchar_t -> char */
