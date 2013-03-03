@@ -16,6 +16,9 @@
 char *_commandLine;
 
 char** environ;
+char** _environ;
+
+LPTOP_LEVEL_EXCEPTION_FILTER topLevelFilter;
 
 extern char _currentdir[];
 
@@ -612,4 +615,10 @@ char* wce_wctomb(const wchar_t* w)
 		-1, pChar, charlength, NULL, NULL);
 
 	return pChar;
+}
+
+LPTOP_LEVEL_EXCEPTION_FILTER SetUnhandledExceptionFilter(__in LPTOP_LEVEL_EXCEPTION_FILTER lpTopLevelExceptionFilter) {
+	LPTOP_LEVEL_EXCEPTION_FILTER oldFilter = topLevelFilter;
+	topLevelFilter = lpTopLevelExceptionFilter;
+	return oldFilter;
 }

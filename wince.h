@@ -149,8 +149,11 @@ void OutputDebugStringA(LPCSTR lpOutputString);
 
 #define MemoryBarrier _ReadWriteBarrier
 
-#undef LPTOP_LEVEL_EXCEPTION_FILTER
-#define LPTOP_LEVEL_EXCEPTION_FILTER void*
+typedef LONG (*PTOP_LEVEL_EXCEPTION_FILTER)(__in struct _EXCEPTION_POINTERS *ExceptionInfo);
+typedef PTOP_LEVEL_EXCEPTION_FILTER LPTOP_LEVEL_EXCEPTION_FILTER;
+LPTOP_LEVEL_EXCEPTION_FILTER SetUnhandledExceptionFilter(__in LPTOP_LEVEL_EXCEPTION_FILTER lpTopLevelExceptionFilter);
+
+extern LPTOP_LEVEL_EXCEPTION_FILTER topLevelFilter;
 
 /* char -> wchar_t, wchar_t -> char */
 wchar_t* wce_mbtowc(const char* a);
